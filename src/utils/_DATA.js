@@ -22,7 +22,7 @@ let users = {
     questions: ["loxhs1bqm25b708cmbf3g", "vthrdm985a262al8qx3do"],
   },
   omarabdulRahman: {
-    id: "omarabdulRahman",
+    id: "omarabdulrahman",
     name: "Omar AbdulRahman",
     avatarURL: "https://avatars.githubusercontent.com/u/58887202?v=4",
     answers: {
