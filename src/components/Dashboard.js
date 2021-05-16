@@ -1,9 +1,30 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import Question from "./Question";
-import "../styles/oldProjectStyles.css";
+import Box from "@material-ui/core/Box";
+import Grid from "@material-ui/core/Grid";
+import Button from "@material-ui/core/Button";
 
+import "../styles/oldProjectStyles.css";
+const styles = {
+  button: {
+    margin: 1,
+  },
+  input: {
+    display: "none",
+  },
+  grid: {
+    flexGrow: 1,
+    marginBottom: "-3em",
+    marginTop: "1em",
+    gap: "10em",
+  },
+};
 class Dashboard extends Component {
+  state = {
+    unAnsweredQuestionsChosen: true,
+  };
+
   getQuestions = (authedUser, questions, users) => {
     let answeredQuestions = {},
       unAnsweredQuestions = {};
@@ -25,21 +46,67 @@ class Dashboard extends Component {
     };
   };
 
+  handleChangeQuestionsViewed(e, value) {
+    this.setState({ unAnsweredQuestionsChosen: value });
+  }
+
   render() {
-    const { authedUser, questionIds, questions, users } = this.props;
+    const { authedUser, questions, users } = this.props;
     const { answeredQuestions, unAnsweredQuestions } = this.getQuestions(
       authedUser,
       questions,
       users
     );
-    console.log(answeredQuestions, unAnsweredQuestions);
-
+    let questionsToDisplay =
+      (this.state.unAnsweredQuestionsChosen
+        ? unAnsweredQuestions
+        : answeredQuestions) || [];
+    console.log(
+      questions,
+      answeredQuestions,
+      unAnsweredQuestions,
+      questionsToDisplay
+    );
     return (
       <div style={{ alignItems: "center", margin: "auto" }}>
+        <div>
+          <Grid
+            container
+            direction="row"
+            justify="center"
+            alignItems="center"
+            style={{
+              flexGrow: 1,
+              marginBottom: "-3em",
+              marginTop: "1em",
+              gap: "10em",
+            }}
+          >
+            <Box textAlign="center">
+              <Button
+                variant="contained"
+                color="primary"
+                style={{ margin: 100 }}
+                onClick={(e) => this.handleChangeQuestionsViewed(e, true)}
+              >
+                UnAnswered Questions
+              </Button>
+              <Button
+                variant="contained"
+                color="secondary"
+                style={{ margin: 100 }}
+                onClick={(e) => this.handleChangeQuestionsViewed(e, false)}
+              >
+                Answered Questions
+              </Button>
+            </Box>
+          </Grid>
+        </div>
+
         <ul className="dashboard-list">
-          {questionIds.map((id) => (
-            <li key={id}>
-              <Question id={id} />
+          {Object.keys(questionsToDisplay).map((element) => (
+            <li key={questionsToDisplay[element].id}>
+              <Question id={questionsToDisplay[element].id} />
             </li>
           ))}
         </ul>
@@ -51,9 +118,6 @@ class Dashboard extends Component {
 function mapStateToProps({ authedUser, questions, users }) {
   return {
     authedUser,
-    questionIds: Object.keys(questions).sort(
-      (a, b) => questions[b].timestamp - questions[a].timestamp
-    ),
     questions,
     users,
   };
