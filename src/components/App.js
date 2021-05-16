@@ -4,6 +4,7 @@ import { handleInitialData } from "../actions/shared";
 import AddQuestion from "./AddQuestion";
 import AnswerQuestion from "./AnswerQuestion";
 import Dashboard from "./Dashboard";
+import Leaderboard from "./Leaderboard";
 import LogIn from "./Login";
 
 class App extends Component {
@@ -14,6 +15,7 @@ class App extends Component {
   render() {
     return (
       <div className="container">
+        <Leaderboard />
         <AddQuestion />
         <LogIn></LogIn>
 

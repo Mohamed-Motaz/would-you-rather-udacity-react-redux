@@ -21,12 +21,14 @@ class Dashboard extends Component {
         unAnsweredQuestions,
       };
     let allAnswers = Object.keys(users[authedUser].answers) || [];
+    console.log(users[authedUser]);
     answeredQuestions = Object.values(questions)
-      .filter((question) => allAnswers.includes(question.id))
-      .sort((a, b) => b.timestamp - a.timestamp);
+      .sort((a, b) => b.timestamp - a.timestamp)
+      .filter((question) => allAnswers.includes(question.id));
     unAnsweredQuestions = Object.values(questions)
-      .filter((question) => !allAnswers.includes(question.id))
-      .sort((a, b) => b.timestamp - a.timestamp);
+      .sort((a, b) => b.timestamp - a.timestamp)
+      .filter((question) => !allAnswers.includes(question.id));
+    console.log(answeredQuestions, unAnsweredQuestions);
     return {
       answeredQuestions,
       unAnsweredQuestions,
