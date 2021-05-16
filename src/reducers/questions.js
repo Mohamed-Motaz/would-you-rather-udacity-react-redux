@@ -3,9 +3,10 @@ import {
   ADD_ANSWER,
   ADD_QUESTION,
 } from "../actions/questions";
-function generateAddAnswer(state, action) {
+function generateAddAnswer(state = {}, action) {
+  console.log(state, action);
   let votes = state[action.qid][action.answer].votes.concat([
-    action.authenticatedUser,
+    action.authedUser,
   ]);
   return {
     ...state,
@@ -27,7 +28,8 @@ export default function questions(state = {}, action) {
         ...action.questions,
       };
     case ADD_ANSWER:
-      return generateAddAnswer();
+      console.log(action);
+      return generateAddAnswer(state, action);
 
     case ADD_QUESTION:
       return {

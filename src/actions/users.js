@@ -16,10 +16,10 @@ export function userQuestionAdded(authedUser, qid) {
     qid,
   };
 }
-export function addUserAnswer(authenticatedUser, qid, answer) {
+export function addUserAnswer(authedUser, qid, answer) {
   return {
     type: ADD_USER_ANSWER,
-    authenticatedUser,
+    authedUser,
     qid,
     answer,
   };

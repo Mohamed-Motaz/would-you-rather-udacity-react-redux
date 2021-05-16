@@ -4,22 +4,9 @@ import Question from "./Question";
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
-
 import "../styles/oldProjectStyles.css";
-const styles = {
-  button: {
-    margin: 1,
-  },
-  input: {
-    display: "none",
-  },
-  grid: {
-    flexGrow: 1,
-    marginBottom: "-3em",
-    marginTop: "1em",
-    gap: "10em",
-  },
-};
+import AnswerQuestion from "./AnswerQuestion";
+
 class Dashboard extends Component {
   state = {
     unAnsweredQuestionsChosen: true,
@@ -107,6 +94,7 @@ class Dashboard extends Component {
           {Object.keys(questionsToDisplay).map((element) => (
             <li key={questionsToDisplay[element].id}>
               <Question id={questionsToDisplay[element].id} />
+              <AnswerQuestion id={questionsToDisplay[element].id} />
             </li>
           ))}
         </ul>

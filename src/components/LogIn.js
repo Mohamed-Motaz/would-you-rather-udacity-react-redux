@@ -79,7 +79,7 @@ function Login(props) {
         <CardContent className={classes.content}>
           <Typography
             className={"MuiTypography--heading"}
-            variant={"h6"}
+            variant="h6"
             gutterBottom
             align="center"
           >
@@ -94,7 +94,7 @@ function Login(props) {
             sign in!
           </Typography>
           <Divider className={classes.divider} light />
-          <div >
+          <div>
             <span>Our Current Users</span>
           </div>
           {Object.keys(users).map((user) => (

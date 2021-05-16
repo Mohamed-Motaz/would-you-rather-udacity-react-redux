@@ -13,7 +13,7 @@ export function receiveQuestions(questions) {
   };
 }
 
-export function addAnswer(qid, answer, authedUser) {
+export function addAnswer(authedUser, qid, answer) {
   return {
     type: ADD_ANSWER,
     qid,
