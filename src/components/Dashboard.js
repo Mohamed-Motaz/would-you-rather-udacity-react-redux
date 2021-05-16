@@ -32,7 +32,17 @@ class Dashboard extends Component {
       unAnsweredQuestions,
     };
   };
-
+  getOptionChosenForAnsweredQuestion = (question, authedUser) => {
+    console.log(question);
+    let option = "";
+    question.optionOne.votes.forEach((element) => {
+      if (element === authedUser) option = "optionOne";
+    });
+    question.optionTwo.votes.forEach((element) => {
+      if (element === authedUser) option = "optionTwo";
+    });
+    return option;
+  };
   handleChangeQuestionsViewed(e, value) {
     this.setState({ unAnsweredQuestionsChosen: value });
   }
@@ -54,6 +64,7 @@ class Dashboard extends Component {
       unAnsweredQuestions,
       questionsToDisplay
     );
+
     return (
       <div style={{ alignItems: "center", margin: "auto" }}>
         <div>
@@ -94,7 +105,13 @@ class Dashboard extends Component {
           {Object.keys(questionsToDisplay).map((element) => (
             <li key={questionsToDisplay[element].id}>
               <Question id={questionsToDisplay[element].id} />
-              <AnswerQuestion id={questionsToDisplay[element].id} />
+              <AnswerQuestion
+                id={questionsToDisplay[element].id}
+                chosenAnswer={this.getOptionChosenForAnsweredQuestion(
+                  questionsToDisplay[element],
+                  authedUser
+                )}
+              />
             </li>
           ))}
         </ul>

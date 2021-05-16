@@ -11,15 +11,23 @@ import Typography from "@material-ui/core/Typography";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { handleAnswerQuestion } from "../actions/shared";
+import { Paper } from "@material-ui/core";
 
 class AnswerQuestion extends Component {
+  state = {
+    alreadyAnswered: false,
+  };
   handleUserAnswerQuestion = (option) => {
     const { dispatch, authedUser, id } = this.props;
-
     dispatch(handleAnswerQuestion(authedUser, id, option));
   };
+  componentDidMount() {
+    const { chosenAnswer } = this.props;
+    if (!chosenAnswer) return;
+    this.setState({ chosenAnswer, alreadyAnswered: true });
+  }
   render() {
-    const { questions, users, id } = this.props;
+    const { questions, users, id, chosenAnswer } = this.props;
     const question = questions[id] || null;
     const user = question ? users[questions[id].author] : {};
     return (
@@ -51,16 +59,37 @@ class AnswerQuestion extends Component {
                 Would You Rather
               </Typography>
               <CardActions style={{ justifyContent: "center" }}>
-                {/* <Link to={`/questions/${question.id}`}> */}
-                <Button
-                  variant="contained"
-                  size="large"
-                  color="primary"
-                  onClick={() => this.handleUserAnswerQuestion("optionOne")}
-                >
-                  {question.optionOne.text}
-                </Button>
-                {/* </Link> */}
+                {this.state.alreadyAnswered ? (
+                  <Typography gutterBottom variant="h5" component="h2">
+                    {question.optionOne.text} :{" "}
+                    {
+                      <Paper
+                        style={{
+                          padding: 8,
+                          backgroundColor: "purple",
+                          border: "1px solid black",
+                          color: "white",
+                        }}
+                        variant="outlined"
+                        elevation={12}
+                        square={false}
+                      >
+                        <Typography gutterBottom variant="h5" component="h2">
+                          {question["optionOne"].votes.length}
+                        </Typography>
+                      </Paper>
+                    }
+                  </Typography>
+                ) : (
+                  <Button
+                    variant="contained"
+                    size="large"
+                    color="primary"
+                    onClick={() => this.handleUserAnswerQuestion("optionOne")}
+                  >
+                    {question.optionOne.text}
+                  </Button>
+                )}
               </CardActions>
               <Typography gutterBottom variant="h5" component="h2">
                 OR
@@ -68,16 +97,58 @@ class AnswerQuestion extends Component {
               <br />
               <CardActions style={{ justifyContent: "center" }}>
                 {/* <Link to={`/questions/${question.id}`}> */}
-                <Button
-                  variant="contained"
-                  size="large"
-                  color="secondary"
-                  onClick={() => this.handleUserAnswerQuestion("optionTwo")}
-                >
-                  {question.optionTwo.text}
-                </Button>
+                {this.state.alreadyAnswered ? (
+                  <>
+                    <Typography gutterBottom variant="h5" component="h2">
+                      {question.optionTwo.text} :
+                      {
+                        <Paper
+                          style={{
+                            padding: 8,
+                            backgroundColor: "purple",
+                            border: "1px solid black",
+                            color: "white",
+                          }}
+                          variant="outlined"
+                          elevation={12}
+                          square={false}
+                        >
+                          <Typography gutterBottom variant="h5" component="h2">
+                            {question["optionTwo"].votes.length}
+                          </Typography>
+                        </Paper>
+                      }
+                    </Typography>
+                  </>
+                ) : (
+                  <Button
+                    variant="contained"
+                    size="large"
+                    color="secondary"
+                    onClick={() => this.handleUserAnswerQuestion("optionTwo")}
+                  >
+                    {question.optionTwo.text}
+                  </Button>
+                )}
                 {/* </Link> */}
               </CardActions>
+              {this.state.alreadyAnswered && (
+                <Paper
+                  style={{
+                    padding: 8,
+                    backgroundColor: "purple",
+                    border: "1px solid black",
+                    color: "white",
+                  }}
+                  variant="outlined"
+                  elevation={12}
+                  square={false}
+                >
+                  <Typography gutterBottom variant="h5" component="h2">
+                    Selected Choice: {question[chosenAnswer].text}
+                  </Typography>
+                </Paper>
+              )}
             </CardContent>
           </CardActionArea>
         </Card>
