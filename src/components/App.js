@@ -1,6 +1,8 @@
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import { handleInitialData } from "../actions/shared";
+import AddQuestion from "./AddQuestion";
+import Dashboard from "./Dashboard";
 import LogIn from "./Login";
 
 class App extends Component {
@@ -10,8 +12,10 @@ class App extends Component {
 
   render() {
     return (
-      <div>
-        Starter Code<LogIn></LogIn>
+      <div className="container">
+        <AddQuestion />
+        <LogIn></LogIn>
+        <Dashboard />
       </div>
     );
   }

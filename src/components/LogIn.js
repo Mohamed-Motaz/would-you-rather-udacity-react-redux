@@ -4,6 +4,8 @@ import { withStyles } from "@material-ui/core/styles";
 import Avatar from "@material-ui/core/Avatar";
 import Card from "@material-ui/core/Card";
 import CardMedia from "@material-ui/core/CardMedia";
+import CardActions from "@material-ui/core/CardActions";
+
 import CardContent from "@material-ui/core/CardContent";
 import Divider from "@material-ui/core/Divider";
 import Typography from "@material-ui/core/Typography";
@@ -79,18 +81,20 @@ function Login(props) {
             className={"MuiTypography--heading"}
             variant={"h6"}
             gutterBottom
+            align="center"
           >
             Would YOU Rather?
           </Typography>
           <Typography
             className={"MuiTypography--subheading"}
             variant={"caption"}
+            align="center"
           >
             Would you rather is a simple game, but to play, you first have to
             sign in!
           </Typography>
           <Divider className={classes.divider} light />
-          <div>
+          <div >
             <span>Our Current Users</span>
           </div>
           {Object.keys(users).map((user) => (
@@ -100,24 +104,27 @@ function Login(props) {
               src={users[user].avatarURL}
             />
           ))}
-          <div>
-            <TextField
-              select
-              label="Select A User"
-              value={user}
-              onChange={handleChange}
-              helperText="Select A User To Start The Game!"
-            >
-              {Object.keys(users).map((user) => (
-                <MenuItem key={users[user].id} value={users[user].id}>
-                  {users[user].name}
-                </MenuItem>
-              ))}
-            </TextField>
-          </div>
-          <Button onClick={handleLogin} variant="contained" color="primary">
-            Login
-          </Button>
+
+          <CardActions style={{ justifyContent: "center" }}>
+            <div>
+              <TextField
+                select
+                label="Select A User"
+                value={user}
+                onChange={handleChange}
+                helperText="Select A User To Start The Game!"
+              >
+                {Object.keys(users).map((user) => (
+                  <MenuItem key={users[user].id} value={users[user].id}>
+                    {users[user].name}
+                  </MenuItem>
+                ))}
+              </TextField>
+            </div>
+            <Button onClick={handleLogin} variant="contained" color="primary">
+              Login
+            </Button>
+          </CardActions>
         </CardContent>
       </Card>
     </div>

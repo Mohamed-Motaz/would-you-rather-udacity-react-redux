@@ -13,8 +13,8 @@ export function getInitialData() {
     })
   );
 }
-export function saveAnswer(authedUser, questionId, answer) {
-  return _saveQuestionAnswer({ authedUser, questionId, answer });
+export function saveAnswer(authedUser, qid, answer) {
+  return _saveQuestionAnswer({ authedUser, qid, answer });
 }
 
 export function saveQuestion(question) {

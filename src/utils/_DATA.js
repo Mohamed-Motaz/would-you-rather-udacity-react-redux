@@ -21,7 +21,7 @@ let users = {
     },
     questions: ["loxhs1bqm25b708cmbf3g", "vthrdm985a262al8qx3do"],
   },
-  omarabdulRahman: {
+  omarabdulrahman: {
     id: "omarabdulrahman",
     name: "Omar AbdulRahman",
     avatarURL: "https://avatars.githubusercontent.com/u/58887202?v=4",
@@ -76,7 +76,7 @@ let questions = {
   },
   loxhs1bqm25b708cmbf3g: {
     id: "loxhs1bqm25b708cmbf3g",
-    author: "omarabdulRahman",
+    author: "omarabdulrahman",
     timestamp: 1482579767190,
     optionOne: {
       votes: [],
@@ -89,10 +89,10 @@ let questions = {
   },
   vthrdm985a262al8qx3do: {
     id: "vthrdm985a262al8qx3do",
-    author: "omarabdulRahman",
+    author: "omarabdulrahman",
     timestamp: 1489579767190,
     optionOne: {
-      votes: ["omarabdulRahman"],
+      votes: ["omarabdulrahman"],
       text: "find $50 yourself",
     },
     optionTwo: {
@@ -109,7 +109,7 @@ let questions = {
       text: "write JavaScript",
     },
     optionTwo: {
-      votes: ["omarabdulRahman"],
+      votes: ["omarabdulrahman"],
       text: "write Swift",
     },
   },
@@ -160,7 +160,6 @@ export function _saveQuestion(question) {
         ...questions,
         [formattedQuestion.id]: formattedQuestion,
       };
-
       users = {
         ...users,
         [authedUser]: {
