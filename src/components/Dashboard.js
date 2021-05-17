@@ -5,7 +5,6 @@ import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import "../styles/oldProjectStyles.css";
-import AnswerQuestion from "./AnswerQuestion";
 
 class Dashboard extends Component {
   state = {

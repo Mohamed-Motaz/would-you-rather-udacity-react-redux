@@ -4,12 +4,10 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
-import IconButton from "@material-ui/core/IconButton";
-import MenuIcon from "@material-ui/icons/Menu";
 import Box from "@material-ui/core/Box";
 import { connect } from "react-redux";
 import { NavLink } from "react-router-dom";
-import { removeAuthedUser, REMOVE_AUTHED_USER } from "../actions/authedUser";
+import { removeAuthedUser } from "../actions/authedUser";
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -43,7 +41,7 @@ function NavBar(props) {
             </NavLink>
           </Box>
           <Box m={2}>
-            <NavLink className="nav-link nav-item" to="/new">
+            <NavLink className="nav-link nav-item" to="/add">
               <Button variant="contained" size="large" color="default">
                 Create Question
               </Button>

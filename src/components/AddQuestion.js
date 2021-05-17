@@ -12,6 +12,7 @@ import {
 // Picker
 import { connect } from "react-redux";
 import { handleAddQuestion } from "../actions/questions";
+import { withRouter } from "react-router";
 
 class AddQuestion extends Component {
   state = { optionOne: "", optionTwo: "" };
@@ -22,10 +23,15 @@ class AddQuestion extends Component {
     console.log(this.props);
     console.log(this.state);
     e.preventDefault();
+    if (!this.state.optionOne || !this.state.optionTwo) {
+      return alert("Please enter valid questions");
+    }
     dispatch(
       handleAddQuestion(authedUser, this.state.optionOne, this.state.optionTwo)
     );
+
     alert("Question Successfully Created!");
+    return this.props.history.push("/");
   };
   handleChange = (e) => {
     this.setState({ [e.target.name]: e.target.value });
@@ -111,4 +117,4 @@ class AddQuestion extends Component {
 function mapStateToProps({ authedUser }) {
   return { authedUser };
 }
-export default connect(mapStateToProps)(AddQuestion);
+export default withRouter(connect(mapStateToProps)(AddQuestion));
