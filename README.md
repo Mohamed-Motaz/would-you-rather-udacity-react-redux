@@ -1,7 +1,7 @@
 # Project Instructions
 
 
-# MyReads: A Book Lending App
+# Would YOU Rather? : A Game App built using React and Redux
 
 
 ### Prerequisites
