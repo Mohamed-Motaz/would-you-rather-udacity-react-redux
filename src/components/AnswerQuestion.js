@@ -9,27 +9,59 @@ import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import { handleAnswerQuestion } from "../actions/shared";
 import { Paper } from "@material-ui/core";
 
 class AnswerQuestion extends Component {
   state = {
+    questionPresent: true,
     alreadyAnswered: false,
+    chosenAnswer: "",
   };
   handleUserAnswerQuestion = (option) => {
     const { dispatch, authedUser, id } = this.props;
     dispatch(handleAnswerQuestion(authedUser, id, option));
+    this.setState({ alreadyAnswered: true, chosenAnswer: option });
+  };
+  getCurrentQuestion = () => {
+    const { questions, id } = this.props;
+    const question = questions[id];
+    return question;
+  };
+  getOptionChosenForAnsweredQuestion = () => {
+    const { authedUser } = this.props;
+    const question = this.getCurrentQuestion();
+    console.log("this is the question", question);
+    if (!question || Object.keys(question).length === 0)
+      return this.setState({ questionPresent: false });
+    let option = "";
+    question.optionOne.votes.forEach((element) => {
+      if (element === authedUser) option = "optionOne";
+    });
+    question.optionTwo.votes.forEach((element) => {
+      if (element === authedUser) option = "optionTwo";
+    });
+    return option;
   };
   componentDidMount() {
-    const { chosenAnswer } = this.props;
+    const chosenAnswer = this.getOptionChosenForAnsweredQuestion();
+    console.log("this is the chosen answer", chosenAnswer);
     if (!chosenAnswer) return;
-    this.setState({ chosenAnswer, alreadyAnswered: true });
+    this.setState({
+      chosenAnswer,
+      alreadyAnswered: true,
+      questionPresent: true,
+    });
   }
   render() {
-    const { questions, users, id, chosenAnswer } = this.props;
+    const { questions, users, id } = this.props;
+    const { chosenAnswer, questionPresent } = this.state;
+    console.log(this.props);
+    console.log(this.state);
     const question = questions[id] || null;
     const user = question ? users[questions[id].author] : {};
+    if (!questionPresent || !question) return <h1>ERROR: NO SUCH QUESTION</h1>;
     return (
       <>
         <Card
@@ -96,7 +128,6 @@ class AnswerQuestion extends Component {
               </Typography>
               <br />
               <CardActions style={{ justifyContent: "center" }}>
-                {/* <Link to={`/questions/${question.id}`}> */}
                 {this.state.alreadyAnswered ? (
                   <>
                     <Typography gutterBottom variant="h5" component="h2">
@@ -157,12 +188,14 @@ class AnswerQuestion extends Component {
   }
 }
 
-function mapStateToProps({ users, questions, authedUser }) {
+function mapStateToProps({ users, questions, authedUser }, props) {
+  const { id } = props.match.params;
   return {
+    id,
     users,
     questions,
     authedUser,
   };
 }
 
-export default connect(mapStateToProps)(AnswerQuestion);
+export default withRouter(connect(mapStateToProps)(AnswerQuestion));

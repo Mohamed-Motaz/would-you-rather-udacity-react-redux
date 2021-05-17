@@ -25,6 +25,7 @@ class AddQuestion extends Component {
     dispatch(
       handleAddQuestion(authedUser, this.state.optionOne, this.state.optionTwo)
     );
+    alert("Question Successfully Created!");
   };
   handleChange = (e) => {
     this.setState({ [e.target.name]: e.target.value });

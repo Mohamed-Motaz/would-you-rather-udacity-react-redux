@@ -51,6 +51,7 @@ const styles = (muiBaseTheme) => ({
 
 function Question(props) {
   const { classes, questions, users, id } = props;
+  console.log(props);
   const question = questions[id];
   const user = users[questions[id].author];
   return (
@@ -97,11 +98,11 @@ function Question(props) {
           </CardContent>
         </CardActionArea>
         <CardActions style={{ justifyContent: "center" }}>
-          {/* <Link to={`/questions/${question.id}`}> */}
-          <Button variant="contained" size="large" color="primary">
-            Choose!
-          </Button>
-          {/* </Link> */}
+          <Link to={`/questions/${question.id}`}>
+            <Button variant="contained" size="large" color="primary">
+              Choose!
+            </Button>
+          </Link>
         </CardActions>
       </Card>
     </>

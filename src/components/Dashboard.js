@@ -34,17 +34,7 @@ class Dashboard extends Component {
       unAnsweredQuestions,
     };
   };
-  getOptionChosenForAnsweredQuestion = (question, authedUser) => {
-    console.log(question);
-    let option = "";
-    question.optionOne.votes.forEach((element) => {
-      if (element === authedUser) option = "optionOne";
-    });
-    question.optionTwo.votes.forEach((element) => {
-      if (element === authedUser) option = "optionTwo";
-    });
-    return option;
-  };
+
   handleChangeQuestionsViewed(e, value) {
     this.setState({ unAnsweredQuestionsChosen: value });
   }
@@ -82,11 +72,11 @@ class Dashboard extends Component {
               gap: "10em",
             }}
           >
-            <Box textAlign="center">
+            <Box textAlign="center" m={10}>
               <Button
                 variant="contained"
                 color="primary"
-                style={{ margin: 100 }}
+                style={{ margin: 10 }}
                 onClick={(e) => this.handleChangeQuestionsViewed(e, true)}
               >
                 UnAnswered Questions
@@ -94,7 +84,7 @@ class Dashboard extends Component {
               <Button
                 variant="contained"
                 color="secondary"
-                style={{ margin: 100 }}
+                style={{ margin: 10 }}
                 onClick={(e) => this.handleChangeQuestionsViewed(e, false)}
               >
                 Answered Questions
@@ -107,13 +97,6 @@ class Dashboard extends Component {
           {Object.keys(questionsToDisplay).map((element) => (
             <li key={questionsToDisplay[element].id}>
               <Question id={questionsToDisplay[element].id} />
-              <AnswerQuestion
-                id={questionsToDisplay[element].id}
-                chosenAnswer={this.getOptionChosenForAnsweredQuestion(
-                  questionsToDisplay[element],
-                  authedUser
-                )}
-              />
             </li>
           ))}
         </ul>
